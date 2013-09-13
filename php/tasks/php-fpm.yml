@@ -33,12 +33,5 @@
   notify:
   - php-fpm-restart
 
-# Add FPM Pools
-- name: "PHP | FPM | Push fpm configuration for pool ${item.name}"
-  template:
-    src=$repository_basedir/php/templates/php-fpm-pool.conf.j2
-    dest=/etc/php5/fpm/pool.d/${item.name}.conf
-    owner=root group=root mode=0644
+- include: $repository_basedir/php/tasks/php-fpm_addpool.yml fpm_pool=$item
   with_items: $php_fpm_pools
-  notify:
-  - php-fpm-restart

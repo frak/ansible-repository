@@ -1,0 +1,28 @@
+---
+# File: setup.yml
+# Part: Project
+#
+# Description: Create a site root, vhost and then clone a project repository
+#
+# Parameters:
+# - project_name: (string) The base project name
+# - project_url: (string) The git clone URL
+# - project_host: (string) The hosts entry and server name to use
+# - 
+#
+# Dependencies ([part:]type:filename):
+# - vars:main.yml
+# - handlers:handlers.yml
+#
+# OS familly: Ubuntu
+
+- name: Create site root
+  action: file dest=/var/www/sites/{{ project_name }} state=directory mode=0775
+  
+- include: $repository_basedir/apache/tasks/vhost_add.yml docroot=/var/www/sites/{{ project_name/web}} vhost={{ project_host }} create_docroot=false
+
+- name: Clone project repository
+  shell: git clone {{ project_url }} --recursive /var/www/sites/{{ project_name }}
+
+- name: Set hosts entry
+  host: ip=127.0.0.1 hostnames={{ project_host }}

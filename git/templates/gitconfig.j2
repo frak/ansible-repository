@@ -1,15 +1,24 @@
 # {{ ansible_managed }}
 
 [user]
-  name = {{ git_username }}
-  email = {{ git_usermail }}
+    name = {{ git_username }}
+    email = {{ git_usermail }}
 
 [color]
-  ui = true
+    ui = true
+	diff = auto
+	status = auto
+	branch = auto
 
 [core]
-  editor = {{ git_coreeditor|default('vi') }}
+    editor = {{ git_coreeditor|default('vi') }}
+	whitespace = trailing-space,space-before-tab
 
 [push]
-  default = {{ git_pushdefault|default('current')  }}
+    default = {{ git_pushdefault|default('current')  }}
 
+[alias]
+ 	lg = log --graph --pretty=format:'%Cred%h%Creset - [%an] - %C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+        sync-tags = !git tag -l | xargs git tag -d && git fetch --tags
+[github]
+	token = {{ github_token }}

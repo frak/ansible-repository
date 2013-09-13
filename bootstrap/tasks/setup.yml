@@ -30,4 +30,16 @@
     - unzip
     - python-software-properties # Dependencies for the apt module
     - software-properties-common
+    - acl
 
+- name: Prepare SSH directory
+  action: file dest=/home/vagrant/.ssh state=directory mode=0700
+
+- name: Copy private key
+  action: copy src=~/.ssh/id_rsa dest=/home/vagrant/.ssh/id_rsa mode=0600
+
+- name: Copy public key
+  action: copy src=~/.ssh/id_rsa dest=/home/vagrant/.ssh/id_rsa.pub
+
+# - name: Authenticate with Github
+#   shell: ssh -T git@github.com -o StrictHostKeyChecking=no 2>/dev/null
