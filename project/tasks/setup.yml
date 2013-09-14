@@ -16,13 +16,17 @@
 #
 # OS familly: Ubuntu
 
-- name: Create site root
+- name: Create /var/www/sites/{{ project_name }}
   action: file dest=/var/www/sites/{{ project_name }} state=directory mode=0775
   
-- include: $repository_basedir/apache/tasks/vhost_add.yml docroot=/var/www/sites/{{ project_name/web}} vhost={{ project_host }} create_docroot=false
+- name: Set ACL for web user and vagrant
+  acl: name=/var/www/sites/{{ project_name }} state=present entry='u:www-data:rwx'
+  acl: name=/var/www/sites/{{ project_name }} state=present entry='u:vagrant:rwx'
+  
+- include: $repository_basedir/apache/tasks/vhost_add.yml docroot=/var/www/sites/{{ project_name}}/web vhost={{ project_host }} create_docroot=false
 
 - name: Clone project repository
-  shell: git clone {{ project_url }} --recursive /var/www/sites/{{ project_name }}
+  git: repo={{ project_url }} dest=/var/www/sites/{{ project_name }} version=develop
 
 - name: Set hosts entry
   host: ip=127.0.0.1 hostnames={{ project_host }}

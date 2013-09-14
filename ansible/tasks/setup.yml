@@ -28,4 +28,4 @@
     owner=root group=root mode=0644
 
 - name: Ansible | Install the ansible repository_basedir
-  git: repo=git://github.com/gaspaio/ansible-repository.git dest=$ansible_repodir version=master
+  git: repo=git://github.com/frak/ansible-repository.git dest=/opt/ansible-repository version=master
