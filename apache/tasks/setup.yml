@@ -47,3 +47,6 @@
 # Insure service is running.
 - name: Apache | Insure deamon is running correctly
   service: name=apache2 state=started
+
+- name: Give www-data full perms on the web root
+  acl: name={{ apache_root }} state=present entry='u:www-data:rwx'
