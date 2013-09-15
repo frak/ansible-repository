@@ -20,13 +20,15 @@
   action: file dest=/var/www/sites/{{ project_name }} state=directory mode=0775
   
 - name: Set ACL for web user and vagrant
+  sudo: yes
   acl: name=/var/www/sites/{{ project_name }} state=present entry='u:www-data:rwx'
   acl: name=/var/www/sites/{{ project_name }} state=present entry='u:vagrant:rwx'
   
 - include: $repository_basedir/apache/tasks/vhost_add.yml docroot=/var/www/sites/{{ project_name}}/web vhost={{ project_host }} create_docroot=false
 
+- name: Set hosts entry
+  sudo: yes
+  host: ip=127.0.0.1 hostname={{ project_host }}
+
 # - name: Clone project repository
 #   git: repo={{ project_url }} dest=/var/www/sites/{{ project_name }} version=develop
-
-- name: Set hosts entry
-  host: ip=127.0.0.1 hostname={{ project_host }}
