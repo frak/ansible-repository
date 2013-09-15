@@ -31,6 +31,7 @@
     - python-software-properties # Dependencies for the apt module
     - software-properties-common
     - acl
+    - nfs-kernel-server
 
 - name: Prepare SSH directory
   action: file dest=/home/vagrant/.ssh state=directory mode=0700
@@ -40,6 +41,12 @@
 
 - name: Copy public key
   action: copy src=~/.ssh/id_rsa dest=/home/vagrant/.ssh/id_rsa.pub
+
+- name: Copy NFS exports
+  template:
+    src=$repository_basedir/bootstrap/templates/exports.j2
+    dest=/etc/exports
+    owner=root group=root
 
 # - name: Authenticate with Github
 #   shell: ssh -T git@github.com -o StrictHostKeyChecking=no 2>/dev/null

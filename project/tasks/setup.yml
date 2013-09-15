@@ -34,4 +34,4 @@
   git: repo={{ project_url }} dest=/var/www/sites/{{ project_name }} version=develop
 
 - name: Install vendors with composer
-  shell: '/usr/local/bin/composer install' chdir=/var/www/sites/{{ project_name }} 
+  shell: chdir=/var/www/sites/{{ project_name }} /usr/local/bin/composer install
