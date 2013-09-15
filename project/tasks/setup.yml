@@ -28,7 +28,7 @@
 
 - name: Set hosts entry
   sudo: yes
-  host: ip=127.0.0.1 hostname={{ project_host }}
+  host: ip=127.0.0.1 hostname=localhost aliases={{ project_host }}
 
-# - name: Clone project repository
-#   git: repo={{ project_url }} dest=/var/www/sites/{{ project_name }} version=develop
+- name: Clone project repository
+  git: repo={{ project_url }} dest=/var/www/sites/{{ project_name }} version=develop
