@@ -1,8 +1,11 @@
 - name: apache-start
+  sudo: yes
   service: name=apache2 start=started
 
 - name: apache-restart
+  sudo: yes
   service: name=apache2 state=restarted
 
 - name: apache-reload
+  sudo: yes
   service: name=apache2 state=reloaded
