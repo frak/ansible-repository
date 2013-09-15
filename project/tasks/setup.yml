@@ -29,4 +29,4 @@
 #   git: repo={{ project_url }} dest=/var/www/sites/{{ project_name }} version=develop
 
 - name: Set hosts entry
-  host: ip=127.0.0.1 hostnames={{ project_host }}
+  host: ip=127.0.0.1 hostname={{ project_host }}
