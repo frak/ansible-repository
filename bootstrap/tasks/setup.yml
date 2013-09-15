@@ -48,5 +48,5 @@
     dest=/etc/exports
     owner=root group=root
 
-# - name: Authenticate with Github
-#   shell: ssh -T git@github.com -o StrictHostKeyChecking=no 2>/dev/null
+- name: Start NFS server
+  service: name=nfs-kernel-server state=started
