@@ -1,0 +1,16 @@
+---
+- hosts: elasticsearch
+  user: $user
+  sudo: yes
+  sudo_user: root
+
+  vars_files:
+    - vars/elasticsearch.yml
+    - vars/paramedic.yml
+
+  tasks:
+    - include: tasks/elasticsearch.yml
+    - include: tasks/paramedic.yml
+
+  handlers:
+    - include: handlers/elasticsearch.yml
