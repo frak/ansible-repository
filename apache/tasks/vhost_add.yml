@@ -29,11 +29,13 @@
 #   when_boolean: $create_docroot
 
 - name: Apache | Virtualhost add | Push virtualhost configuration template
+  sudo: yes
   template:
     src=$repository_basedir/apache/templates/virtualhost.j2
     dest=/etc/apache2/sites-available/$vhost
 
 - name: Apache | Virtualhost add | Activate virtual host $vhost
+  sudo: yes
   command: /usr/sbin/a2ensite $vhost creates=/etc/apache2/sites-enabled/$vhost
   notify:
   - apache-reload
