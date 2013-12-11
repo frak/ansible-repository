@@ -19,8 +19,8 @@
 - name: Create /var/www/sites/{{ project_name }}
   action: file dest=/var/www/sites/{{ project_name }} state=directory mode=0775
   
-- include: {{ repository_basedir }}/apache/tasks/vhost_add.yml docroot=/var/www/sites/{{ project_name}}/web vhost={{ project_host }} create_docroot=false
-- include: {{ repository_basedir }}/apache/tasks/vhost_ssl_add.yml docroot=/var/www/sites/{{ project_name}}/web vhost={{ project_host }}-ssl create_docroot=false port=443
+- include: "{{ repository_basedir }}/apache/tasks/vhost_add.yml docroot=/var/www/sites/{{ project_name}}/web vhost={{ project_host }} create_docroot=false"
+- include: "{{ repository_basedir }}/apache/tasks/vhost_ssl_add.yml docroot=/var/www/sites/{{ project_name}}/web vhost={{ project_host }}-ssl create_docroot=false port=443"
 
 - name: Set hosts entry
   sudo: yes

@@ -20,7 +20,7 @@
   file:
     path={{ docroot }}
     state=directory
-  when_boolean: {{ create_docroot }}
+  when_boolean: $create_docroot
 
 # - name: Apache | Virtualhost add | Push default index file to docroot
 #   template:

@@ -1,5 +1,5 @@
 # {{ ansible_managed }}
-<VirtualHost {{ interfaces|default('*') }}:{{ port|default('80') }}>
+<VirtualHost {{ interfaces|default('*') }}:{{ port|default('443') }}>
     ServerName {{ vhost }}
 
     DocumentRoot {{ docroot }}
@@ -10,8 +10,8 @@
         allow from all
     </Directory>
 
-    CustomLog {{ APACHE_LOG_DIR }}/access_{{ vhost }}-ssl.log combined
-    ErrorLog {{ APACHE_LOG_DIR }}/error_{{ vhost }}-ssl.log
+    CustomLog ${APACHE_LOG_DIR}/access_{{ vhost }}-ssl.log combined
+    ErrorLog ${APACHE_LOG_DIR}/error_{{ vhost }}-ssl.log
 
     SetEnv KERNEL dev
 
