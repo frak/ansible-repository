@@ -6,15 +6,15 @@
     - elasticsearch
 
 # Fetch Elasticsearch Debian package
-- name: "Fetch Elasticsearch 0.90.5"
-  get_url: url=http://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.90.5.deb dest=/tmp thirsty=yes mode=0440
+- name: "Fetch Elasticsearch {{ elasticsearch_version }}"
+  get_url: "url=http://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-{{ elasticsearch_version }}.deb dest=/tmp thirsty=yes mode=0440"
   register: elasticsearch_deb
   tags:
     - elasticsearch
 
 # Install Elasticsearch
-- name: "Install Elasticsearch package: elasticsearch-0.90.5.deb"
-  shell: dpkg -i /tmp/elasticsearch-0.90.5.deb  
+- name: "Install Elasticsearch package: elasticsearch-{{ elasticsearch_version }}.deb"
+  shell: "dpkg -i /tmp/elasticsearch-{{ elasticsearch_version }}.deb"
   tags:
     - elasticsearch
 
@@ -26,6 +26,11 @@
 
 - name: "Install ICU analyser plugin"
   shell: /usr/share/elasticsearch/bin/plugin -install elasticsearch/elasticsearch-analysis-icu/1.12.0
+  tags:
+    - elasticsearch
+
+- name: "Install HQ plugin"
+  shell: /usr/share/elasticsearch/bin/plugin -install royrusso/elasticsearch-HQ
   tags:
     - elasticsearch
 
