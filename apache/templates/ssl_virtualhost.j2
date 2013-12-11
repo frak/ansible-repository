@@ -18,8 +18,8 @@
     SSLEngine on
     SSLCipherSuite ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP
     SSLOptions +FakeBasicAuth +ExportCertData +StdEnvVars +StrictRequire
-    SSLCertificateFile /etc/ssl/certs/dev-ssl.crt
-    SSLCertificateKeyFile /etc/ssl/private/dev-ssl.key
+    SSLCertificateFile /etc/ssl/certs/ssl-cert-snakeoil.pem
+    SSLCertificateKeyFile /etc/ssl/private/ssl-cert-snakeoil.key
     
     SetEnvIf User-Agent ".*MSIE.*" nokeepalive ssl-unclean-shutdown downgrade-1.0 force-response-1.0
 
