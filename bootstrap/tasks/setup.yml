@@ -59,5 +59,12 @@
     dest=/home/vagrant/.bashrc
     owner=vagrant group=vagrant
 
+- name: Project installer
+  template: 
+    src={{ repository_basedir }}/bootstrap/templates/install.j2
+    dest=/home/vagrant/install.sh
+    owner=vagrant group=vagrant
+    mode=0755
+
 - name: Install RabbitMQ web interface
   command: /usr/sbin/rabbitmq-plugins enable rabbitmq_management
