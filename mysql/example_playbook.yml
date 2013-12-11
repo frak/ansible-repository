@@ -9,7 +9,7 @@
     mysql_root_password: MJacksonIsNotDead
 
   tasks:
-  - include: $repository_basedir/mysql/tasks/setup.yml
+  - include: {{ repository_basedir }}/mysql/tasks/setup.yml
 
   handlers:
-  - include: $repository_basedir/mysql/handlers/handlers.yml
+  - include: {{ repository_basedir }}/mysql/handlers/handlers.yml

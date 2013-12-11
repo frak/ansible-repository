@@ -5,49 +5,49 @@
 # Description: Create a new server block
 #
 # Parameters:
-# - $root : docroot path
-# - $name: server name(s)
-# - $create_root : create the root directory in the filesystem (if it doesn't exist) and push a default index file.
-# - $port : 80 by default
-# - $type : html / php
-# - $upstream : if $type = php, the upstream name
+# - {{ root }} : docroot path
+# - {{ name }}: server name(s)
+# - {{ create_root }} : create the root directory in the filesystem (if it doesn't exist) and push a default index file.
+# - {{ port }} : 80 by default
+# - {{ type }} : html / php
+# - {{ upstream }} : if {{ type }} = php, the upstream name
 #
 # Dependencies-internal ([part:]type:filename):
 # - handlers.yml
 # OS familly: Ubuntu
 
-- name: Nginx | Server add | Ensure $root doesn't exist
+- name: Nginx | Server add | Ensure {{ root }} doesn't exist
   file:
-    path=$root
+    path={{ root }}
     state=absent
-  when_boolean: $create_root
+  when_boolean: {{ create_root }}
 
-- name: Nginx | Server add | Create document root at $root
+- name: Nginx | Server add | Create document root at {{ root }}
   file:
-    path=$root
+    path={{ root }}
     state=directory
-  when_boolean: $create_root
+  when_boolean: {{ create_root }}
 
 # PHP Server Setup
 - name: Nginx | Server add | Push default index file
   template:
-    src=$repository_basedir/nginx/templates/default_index.${type}.j2
-    dest=$root/index.${type}
-  when_boolean: $create_root
+    src={{ repository_basedir }}/nginx/templates/default_index.{{ type }}.j2
+    dest={{ root }}/index.{{ type }}
+  when_boolean: {{ create_root }}
   notify:
   - nginx-restart
 
 - name: Nginx | Server add | Push server configuration file
   template:
-    src=$repository_basedir/nginx/templates/server.conf.j2
-    dest=/etc/nginx/sites-available/${name}.conf
+    src={{ repository_basedir }}/nginx/templates/server.conf.j2
+    dest=/etc/nginx/sites-available/{{ name }}.conf
   notify:
   - nginx-restart
 
-- name: Nginx | Server add | Activate server host $name
+- name: Nginx | Server add | Activate server host {{ name }}
   file:
-    src=/etc/nginx/sites-available/${name}.conf
-    dest=/etc/nginx/sites-enabled/${name}.conf
+    src=/etc/nginx/sites-available/{{ name }}.conf
+    dest=/etc/nginx/sites-enabled/{{ name }}.conf
     state=link
   notify:
   - nginx-restart

@@ -2,7 +2,7 @@
 
 # Configuration file for varnish
 #
-# /etc/init.d/varnish expects the variables $DAEMON_OPTS, $NFILES and $MEMLOCK
+# /etc/init.d/varnish expects the variables {{ DAEMON_OPTS }}, {{ NFILES }} and {{ MEMLOCK }}
 # to be set from this shell script fragment.
 #
 # Note: If systemd is installed, this file is obsolete and ignored.  You will
@@ -36,7 +36,7 @@ INSTANCE=$(uname -n)
 # 	     -b localhost:8080 \
 # 	     -u varnish -g varnish \
 #            -S /etc/varnish/secret \
-# 	     -s file,/var/lib/varnish/$INSTANCE/varnish_storage.bin,1G"
+# 	     -s file,/var/lib/varnish/{{ INSTANCE }}/varnish_storage.bin,1G"
 
 
 ## Alternative 2, Configuration with VCL
@@ -79,7 +79,7 @@ VARNISH_MAX_THREADS=1000
 VARNISH_THREAD_TIMEOUT=120
 
 # # Cache file location
-VARNISH_STORAGE_FILE=/var/lib/varnish/$INSTANCE/varnish_storage.bin
+VARNISH_STORAGE_FILE=/var/lib/varnish/{{ INSTANCE }}/varnish_storage.bin
 
 # # Cache file size: in bytes, optionally using k / M / G / T suffix,
 # # or in percentage of available disk space using the % suffix.
@@ -89,20 +89,20 @@ VARNISH_STORAGE_SIZE=1G
 VARNISH_SECRET_FILE=/etc/varnish/secret
  
 # # Backend storage specification
-VARNISH_STORAGE="file,${VARNISH_STORAGE_FILE},${VARNISH_STORAGE_SIZE}"
+VARNISH_STORAGE="file,{{ VARNISH_STORAGE_FILE }},{{ VARNISH_STORAGE_SIZE }}"
 
 # # Default TTL used when the backend does not specify one
 VARNISH_TTL=120
 #
 # # DAEMON_OPTS is used by the init script.  If you add or remove options, make
 # # sure you update this section, too.
-DAEMON_OPTS="-a ${VARNISH_LISTEN_ADDRESS}:${VARNISH_LISTEN_PORT} \
-             -f ${VARNISH_VCL_CONF} \
-             -T ${VARNISH_ADMIN_LISTEN_ADDRESS}:${VARNISH_ADMIN_LISTEN_PORT} \
-             -t ${VARNISH_TTL} \
-             -w ${VARNISH_MIN_THREADS},${VARNISH_MAX_THREADS},${VARNISH_THREAD_TIMEOUT} \
-	     -S ${VARNISH_SECRET_FILE} \
-             -s ${VARNISH_STORAGE}"
+DAEMON_OPTS="-a {{ VARNISH_LISTEN_ADDRESS }}:{{ VARNISH_LISTEN_PORT }} \
+             -f {{ VARNISH_VCL_CONF }} \
+             -T {{ VARNISH_ADMIN_LISTEN_ADDRESS }}:{{ VARNISH_ADMIN_LISTEN_PORT }} \
+             -t {{ VARNISH_TTL }} \
+             -w {{ VARNISH_MIN_THREADS }},{{ VARNISH_MAX_THREADS }},{{ VARNISH_THREAD_TIMEOUT }} \
+	     -S {{ VARNISH_SECRET_FILE }} \
+             -s {{ VARNISH_STORAGE }}"
 
 
 

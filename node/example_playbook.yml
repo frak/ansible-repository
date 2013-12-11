@@ -9,5 +9,5 @@
 
   tasks:
     # Install node
-    - include: $repository_basedir/node/tasks/setup.yml
+    - include: {{ repository_basedir }}/node/tasks/setup.yml
 

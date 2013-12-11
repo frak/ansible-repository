@@ -19,7 +19,7 @@
 # Install the default templates
 - name: PHP | Push fpm.conf configuration
   template:
-    src=$repository_basedir/php/templates/php-fpm.conf.j2
+    src={{ repository_basedir }}/php/templates/php-fpm.conf.j2
     dest=/etc/php5/fpm/php-fpm.conf
     owner=root group=root mode=0644
   notify:
@@ -27,11 +27,11 @@
 
 - name: PHP | FPM | Push php.ini fpm configuration
   template:
-    src=$repository_basedir/php/templates/php_web.ini.j2
+    src={{ repository_basedir }}/php/templates/php_web.ini.j2
     dest=/etc/php5/fpm/php.ini
     owner=root group=root mode=0644
   notify:
   - php-fpm-restart
 
-- include: $repository_basedir/php/tasks/php-fpm_addpool.yml fpm_pool=$item
-  with_items: $php_fpm_pools
+- include: {{ repository_basedir }}/php/tasks/php-fpm_addpool.yml fpm_pool={{ item }}
+  with_items: {{ php_fpm_pools }}

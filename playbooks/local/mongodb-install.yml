@@ -8,8 +8,8 @@
     repository_basedir: ../..
 
   tasks:
-    - include: $repository_basedir/mongodb/tasks/setup.yml
+    - include: {{ repository_basedir }}/mongodb/tasks/setup.yml
     
   handlers:
-    - include: $repository_basedir/mongodb/handlers/handlers.yml
+    - include: {{ repository_basedir }}/mongodb/handlers/handlers.yml
 

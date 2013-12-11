@@ -20,7 +20,6 @@
   file:
     path={{ docroot }}
     state=directory
-    owner={{ apache_user }} group={{ apache_group }} mode=0755
   when_boolean: {{ create_docroot }}
 
 # - name: Apache | Virtualhost add | Push default index file to docroot
@@ -32,7 +31,7 @@
 - name: Apache | Virtualhost add | Push virtualhost configuration template
   sudo: yes
   template:
-    src={{ repository_basedir }}/apache/templates/virtualhost.j2
+    src={{ repository_basedir }}/apache/templates/ssl_virtualhost.j2
     dest=/etc/apache2/sites-available/{{ vhost }}
 
 - name: Apache | Virtualhost add | Activate virtual host {{ vhost }}

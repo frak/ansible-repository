@@ -53,7 +53,7 @@ http {
 
     # Connection limiting zones
 
-    limit_conn_zone $binary_remote_addr zone=default:10m;
+    limit_conn_zone {{ binary_remote_addr }} zone=default:10m;
 
 
 	# Logging Settings
@@ -78,7 +78,7 @@ http {
 	# Security
 
 	# Map for blocking not allowed HTTP requests. Out of the box it allows for HEAD, GET and POST.
-	map $request_method $not_allowed_method {
+	map {{ request_method }} {{ not_allowed_method }} {
     	default 1;
     	GET 0;
     	HEAD 0;
@@ -86,7 +86,7 @@ http {
 	}
 
 	# Control access to status page, PHP-FPM status & ping pages, etc.
-	geo $dont_show_status {
+	geo {{ dont_show_status }} {
 		default 1;
 {% for range in nginx_status_ranges %}
 		{{ range }} 0;

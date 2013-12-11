@@ -16,7 +16,7 @@
 
 - name: Memcached | Push default configuration template
   template:
-    src=$repository_basedir/memcached/templates/memcached.conf.j2
+    src={{ repository_basedir }}/memcached/templates/memcached.conf.j2
     dest=/etc/memcached.conf
     owner=root group=root mode=0644
   notify:

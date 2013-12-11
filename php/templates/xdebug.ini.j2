@@ -3,6 +3,7 @@
 zend_extension = {{ php_extension_dir.stdout }}/xdebug.so
 
 xdebug.var_display_max_depth = 100
+xdebug.max_nesting_level = 500
 xdebug.dump_globals = 1
 xdebug.remote_enable = {{ php_xdebug_remote_enable|default(0) }}
 xdebug.remote_host = {{ php_xdebug_remote_host|default('') }}

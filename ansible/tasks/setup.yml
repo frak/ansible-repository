@@ -23,7 +23,7 @@
 
 - name: Ansible | Push basic inventory
   template:
-    src=$repository_basedir/ansible/templates/ansible_hosts.j2
+    src={{ repository_basedir }}/ansible/templates/ansible_hosts.j2
     dest=/etc/ansible/hosts
     owner=root group=root mode=0644
 

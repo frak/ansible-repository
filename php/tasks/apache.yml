@@ -12,13 +12,13 @@
 # OS familly: Ubuntu (>= 12.04)
 
 - name: "PHP | Apache | Install the distribution's PHP & Apache's mod_php base packages"
-  apt: pkg=$item state=installed
+  apt: pkg={{ item }} state=installed
   with_items:
     - libapache2-mod-php5
 
 - name: PHP | Apache | Set php.ini Apache2 template
   template:
-    src=$repository_basedir/php/templates/php_web.ini.j2
+    src={{ repository_basedir }}/php/templates/php_web.ini.j2
     dest=/etc/php5/apache2/php.ini
     owner=root group=root mode=0644
   notify:

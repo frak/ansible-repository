@@ -1,6 +1,6 @@
 # {{ ansible_managed }}
 <VirtualHost *:80>
-	ServerName {{ ansible_fqdn }}
+	ServerName ${ansible_fqdn}
     ServerAdmin {{ apache_admin|default('admin@localhost')}}
     
 	DocumentRoot {{ apache_root}}/default

@@ -1,16 +1,34 @@
----
-- hosts: elasticsearch
-  user: $user
-  sudo: yes
-  sudo_user: root
+# Install Elasticsearch dependencies
+- name: "Install Elasticsearch dependencies"
+  apt: pkg=openjdk-6-jre state=installed update-cache=yes
+  apt: pkg=openjdk-6-jdk state=installed update-cache=yes
+  tags:
+    - elasticsearch
 
-  vars_files:
-    - vars/elasticsearch.yml
-    - vars/paramedic.yml
+# Fetch Elasticsearch Debian package
+- name: "Fetch Elasticsearch 0.90.5"
+  get_url: url=http://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.90.5.deb dest=/tmp thirsty=yes mode=0440
+  register: elasticsearch_deb
+  tags:
+    - elasticsearch
 
-  tasks:
-    - include: tasks/elasticsearch.yml
-    - include: tasks/paramedic.yml
+# Install Elasticsearch
+- name: "Install Elasticsearch package: elasticsearch-0.90.5.deb"
+  shell: dpkg -i /tmp/elasticsearch-0.90.5.deb  
+  tags:
+    - elasticsearch
 
-  handlers:
-    - include: handlers/elasticsearch.yml
+# Add JAVA_HOME var in init script
+- name: "Add JAVA_HOME to Elasticsearch init script"
+  lineinfile: dest=/etc/init.d/elasticsearch state=present regexp="^JAVA_HOME=/usr/lib/jvm/java-6-openjdk-amd64" insertafter="^DEFAULT=/etc/default/" line="JAVA_HOME=/usr/lib/jvm/java-6-openjdk-amd64"
+  tags:
+    - elasticsearch
+
+- name: "Install ICU analyser plugin"
+  shell: /usr/share/elasticsearch/bin/plugin -install elasticsearch/elasticsearch-analysis-icu/1.12.0
+  tags:
+    - elasticsearch
+
+# Ensure Elasticsearch is running
+- name: "Ensure Elasticsearch is running"
+  service: name=elasticsearch state=started

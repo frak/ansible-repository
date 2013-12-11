@@ -5,7 +5,7 @@
   sudo: True
 
   vars_files:
-  - $repository_basedir/graphite/vars/main.yml
+  - {{ repository_basedir }}/graphite/vars/main.yml
 
   vars:
     repository_basedir: ..
@@ -16,4 +16,4 @@
       retentions: '60s:1d'
 
   tasks:
-  - include: $repository_basedir/graphite/tasks/setup.yml
+  - include: {{ repository_basedir }}/graphite/tasks/setup.yml

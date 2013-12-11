@@ -3,14 +3,14 @@
 
 {% for upstream in nginx_fastcgi_upstreams %}
 location = /fpm-status-{{ upstream.name }} {
-    if ($dont_show_status) {
+    if ({{ dont_show_status }}) {
         return 404;
     }
     fastcgi_pass {{ upstream.name }};
 }
 
 location = /ping-{{ upstream.name }} {
-    if ($dont_show_status) {
+    if ({{ dont_show_status }}) {
         return 404;
     }
     fastcgi_pass {{ upstream.name }};

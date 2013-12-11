@@ -10,7 +10,7 @@
 
   tasks:
     # Update Apt caches and upgrade system packages, install misc packages
-    - include: $repository_basedir/bootstrap/tasks/setup.yml
+    - include: {{ repository_basedir }}/bootstrap/tasks/setup.yml
 
     # Install Vim and set .vimrc & pathogen for 'someuser'
-    - include: $repository_basedir/bootstrap/tasks/vim.yml user=someuser
+    - include: {{ repository_basedir }}/bootstrap/tasks/vim.yml user=someuser

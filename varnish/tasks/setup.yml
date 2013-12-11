@@ -22,7 +22,7 @@
 
 #- name: Varnish | Push default configuration template
 #  template:
-#    src=$repository_basedir/varnish/templates/varnish.conf.j2
+#    src={{ repository_basedir }}/varnish/templates/varnish.conf.j2
 #    dest=/etc/varnish/default.vcl
 #    owner=root group=root mode=0644
 #  notify:

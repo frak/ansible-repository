@@ -22,7 +22,7 @@
   command: apt-get install python-apt -y
 
 - name: Bootstrap | Install misc utils
-  apt: pkg=$item state=present
+  apt: pkg={{ item }} state=present
   with_items:
     - htop
     - curl
@@ -32,6 +32,8 @@
     - software-properties-common
     - acl
     - nfs-kernel-server
+    - rabbitmq-server
+    - language-pack-en
 
 - name: Prepare SSH directory
   action: file dest=/home/vagrant/.ssh state=directory mode=0700
@@ -44,9 +46,18 @@
 
 - name: Copy NFS exports
   template:
-    src=$repository_basedir/bootstrap/templates/exports.j2
+    src={{ repository_basedir }}/bootstrap/templates/exports.j2
     dest=/etc/exports
     owner=root group=root
 
 - name: Start NFS server
   service: name=nfs-kernel-server state=started
+
+- name: Install .bashrc
+  template: 
+    src={{ repository_basedir }}/bootstrap/templates/bashrc.j2
+    dest=/home/vagrant/.bashrc
+    owner=vagrant group=vagrant
+
+- name: Install RabbitMQ web interface
+  command: /usr/sbin/rabbitmq-plugins enable rabbitmq_management

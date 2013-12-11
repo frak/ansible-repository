@@ -10,7 +10,7 @@
 # OS familly: Ubuntu
 
 - name: MySQL - install PHP5 bindings
-  apt: pkg=$item state=installed
+  apt: pkg={{ item }} state=installed
   with_items:
     - php5-mysql
 

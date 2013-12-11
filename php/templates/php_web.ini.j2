@@ -44,7 +44,7 @@
 ; The value can be a string, a number, a PHP constant (e.g. E_ALL or M_PI), one
 ; of the INI constants (On, Off, True, False, Yes, No and None) or an expression
 ; (e.g. E_ALL & ~E_NOTICE), a quoted string ("bar"), or a reference to a
-; previously set variable or directive (e.g. ${foo})
+; previously set variable or directive (e.g. $foo)
 
 ; Expressions in the INI file are limited to bitwise operators and parentheses:
 ; |  bitwise OR
@@ -714,7 +714,7 @@ register_globals = Off
 register_long_arrays = Off
 
 ; This directive determines whether PHP registers $argv & $argc each time it
-; runs. $argv contains an array of all the arguments passed to PHP when a script
+; runs. £argv contains an array of all the arguments passed to PHP when a script
 ; is invoked. $argc contains an integer representing the number of arguments
 ; that were passed when the script was invoked. These arrays are extremely
 ; useful when running scripts from the command line. When this directive is
@@ -958,7 +958,7 @@ default_socket_timeout = 60
 [Date]
 ; Defines the default timezone used by the date functions
 ; http://php.net/date.timezone
-date.timezone = {{ php_date_timezone|default('Europe/Paris') }}
+date.timezone = {{ php_date_timezone|default('UTC') }}
 
 ; http://php.net/date.default-latitude
 ;date.default_latitude = 31.7667
@@ -1862,7 +1862,7 @@ ldap.max_links = -1
 
 [xsl]
 ; Write operations from within XSLT are disabled by default.
-; XSL_SECPREF_CREATE_DIRECTORY | XSL_SECPREF_WRITE_NETWORK | XSL_SECPREF_WRITE_FILE = 44
+; XSL_SECPREF_CREATE_DIRECTORY | XSL_SECPREF_WRITE_NETWORK |?XSL_SECPREF_WRITE_FILE = 44
 ; Set it to 0 to allow all operations
 ;xsl.security_prefs = 44
 

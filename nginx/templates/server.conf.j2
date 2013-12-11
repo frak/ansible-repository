@@ -33,17 +33,17 @@ server {
     }
 
     # Deny access based on the User-Agent header.
-    if ($bad_bot) {
+    if ({{ bad_bot }}) {
         return 444;
     }
 
     # Deny access based on the Referer header.
-    if ($bad_referer) {
+    if ({{ bad_referer }}) {
         return 444;
     }
 
     ## Protection against illegal HTTP methods.
-    if ($not_allowed_method) {
+    if ({{ not_allowed_method }}) {
         return 405;
     }
 
@@ -61,8 +61,8 @@ server {
     location ~* \.php$ {
         fastcgi_pass    {{ upstream }};
         include         fastcgi_params;
-        fastcgi_param   SCRIPT_FILENAME    $document_root$fastcgi_script_name;
-        fastcgi_param   SCRIPT_NAME        $fastcgi_script_name;
+        fastcgi_param   SCRIPT_FILENAME    {{ document_root }}{{ fastcgi_script_name }};
+        fastcgi_param   SCRIPT_NAME        {{ fastcgi_script_name }};
         fastcgi_keep_conn on; # keep alive to the FCGI upstream
     }
 {% else %}

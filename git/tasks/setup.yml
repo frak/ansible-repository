@@ -12,12 +12,12 @@
 # OS familly: Ubuntu >= 12.04
 
 - name: Git | Install git base packages
-  apt: pkg=$item state=installed
+  apt: pkg={{ item }} state=installed
   with_items:
     - git-core
 
 # Install the default templates
 - name: Git | Push global config file
   template:
-    src=$repository_basedir/git/templates/gitconfig.j2
+    src={{ repository_basedir }}/git/templates/gitconfig.j2
     dest=/etc/gitconfig

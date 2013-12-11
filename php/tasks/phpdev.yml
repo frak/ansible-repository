@@ -13,7 +13,7 @@
 # OS familly: Ubuntu (>= 12.04)
 
 - name: PHP | PHPDev | Install PHP development packages
-  apt: pkg=$item state=installed
+  apt: pkg={{ item }} state=installed
   with_items:
     - php-pear
 
@@ -40,10 +40,10 @@
   shell: "php -i | grep -i '^extension_dir' | awk '{print $3}'"
   register: php_extension_dir
 
-- include: $repository_basedir/php/tasks/pecl.yml package=xdebug version=stable stdin=
+- include: "{{ repository_basedir }}/php/tasks/pecl.yml package=xdebug version=stable stdin="
 
 # XHProf
-- include: $repository_basedir/php/tasks/pecl.yml package=xhprof version=beta stdin=
+- include: "{{ repository_basedir }}/php/tasks/pecl.yml package=xhprof version=beta stdin="
 
 - name: "PHP | PHPDev | Create xhprof cheatsheet directory : /opt/xhprof"
   file:
@@ -53,8 +53,8 @@
 
 - name: "PHP | PHPDev | Put xhprof quick loading header and footer + usage instructions in /opt/xhprof"
   copy:
-    src=$repository_basedir/php/files/xhprof/$item
-    dest=/opt/xhprof/$item
+    src={{ repository_basedir }}/php/files/xhprof/{{ item }}
+    dest=/opt/xhprof/{{ item }}
     mode=0644
   with_items:
   - xhprof_footer.php

@@ -1,0 +1,17 @@
+# Fetch RabbitMQ Debian package
+- name: "Fetch Elasticsearch: http://www.rabbitmq.com/releases/rabbitmq-server/v3.1.5/rabbitmq-server_3.1.5-1_all.deb"
+  get_url: url=http://www.rabbitmq.com/releases/rabbitmq-server/v3.1.5/rabbitmq-server_3.1.5-1_all.deb dest=/tmp thirsty=yes mode=0440
+  register: rabbitmq_deb
+  tags:
+    - rabbitmq-server
+
+# Install RabbitMQ
+- name: "Install Elasticsearch package: elasticsearch-0.90.3.deb"
+  shell: dpkg -i /tmp/rabbitmq-server_3.1.5-1_all.deb
+  tags:
+    - rabbitmq-server
+
+
+# Ensure RabbitMQ is running
+- name: "Ensure RabbitMQ is running"
+  service: name=rabbitmq-server state=started

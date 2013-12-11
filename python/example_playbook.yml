@@ -5,4 +5,4 @@
   sudo: True
 
   tasks:
-  - include: $repository_basedir/python/tasks/setup.yml
+  - include: {{ repository_basedir }}/python/tasks/setup.yml

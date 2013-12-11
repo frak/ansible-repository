@@ -10,6 +10,9 @@
         allow from all
     </Directory>
 
-    CustomLog ${APACHE_LOG_DIR}/access_{{ vhost }}.log combined
-    ErrorLog ${APACHE_LOG_DIR}/error_{{ vhost }}.log
+    CustomLog {{ APACHE_LOG_DIR }}/access_{{ vhost }}.log combined
+    ErrorLog {{ APACHE_LOG_DIR }}/error_{{ vhost }}.log
+
+    SetEnv KERNEL dev
+
 </VirtualHost>

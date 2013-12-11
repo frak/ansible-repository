@@ -16,7 +16,7 @@
 # Push pool configurations
 - name: PHP | FPM | Push fpm configuration for pool ${fpm_pool.name}
   template:
-    src=$repository_basedir/php/templates/php-fpm-pool.conf.j2
+    src={{ repository_basedir }}/php/templates/php-fpm-pool.conf.j2
     dest=/etc/php5/fpm/pool.d/${fpm_pool.name}.conf
     owner=root group=root mode=0644
   notify:

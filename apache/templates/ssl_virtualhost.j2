@@ -1,0 +1,26 @@
+# {{ ansible_managed }}
+<VirtualHost {{ interfaces|default('*') }}:{{ port|default('80') }}>
+    ServerName {{ vhost }}
+
+    DocumentRoot {{ docroot }}
+    <Directory {{ docroot }}>
+        Options -Indexes FollowSymLinks MultiViews
+        AllowOverride All
+        Order allow,deny
+        allow from all
+    </Directory>
+
+    CustomLog {{ APACHE_LOG_DIR }}/access_{{ vhost }}-ssl.log combined
+    ErrorLog {{ APACHE_LOG_DIR }}/error_{{ vhost }}-ssl.log
+
+    SetEnv KERNEL dev
+
+    SSLEngine on
+    SSLCipherSuite ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP
+    SSLOptions +FakeBasicAuth +ExportCertData +StdEnvVars +StrictRequire
+    SSLCertificateFile /etc/ssl/certs/dev-ssl.crt
+    SSLCertificateKeyFile /etc/ssl/private/dev-ssl.key
+    
+    SetEnvIf User-Agent ".*MSIE.*" nokeepalive ssl-unclean-shutdown downgrade-1.0 force-response-1.0
+
+</VirtualHost>

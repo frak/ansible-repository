@@ -7,12 +7,12 @@
 # Dependencies ([part:]type:filename):
 # - tasks:setup.yml
 # - vars:main.yml (mysql_root_password variable)
-# - $user variable from ansible playbook.
+# - {{ user }} variable from ansible playbook.
 #
 # OS familly: Ubuntu
 
-- name: MySQL | Config for easy access as user $user
+- name: MySQL | Config for easy access as user {{ user }}
   template:
-    src=$repository_basedir/mysql/templates/user_my.cnf.j2
-    dest=/home/$user/.my.cnf
-    owner=$user mode=0600
+    src={{ repository_basedir }}/mysql/templates/user_my.cnf.j2
+    dest=/home/{{ user }}/.my.cnf
+    owner={{ user }} mode=0600
