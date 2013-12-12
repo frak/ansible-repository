@@ -21,14 +21,9 @@
     - php5-dev
     - php-pear
 
-# - name: PHP | PECL | Test for previous "{{ package }}" install
-#   shell:  pecl list | grep -i '{{ package }}'
-#   register: php_package_exists
-#   ignore_errors: yes
-
 - name: PHP | PECL | Install {{ package }}-{{ version }}
   shell: echo {{ stdin }} | pecl install {{ package }}-{{ version }}
-  # when_failed: $php_package_exists
+  ignore_errors: yes
 
 - name: PHP | PECL | Set {{ package }} config (Ubuntu == 12.04)
   template:
