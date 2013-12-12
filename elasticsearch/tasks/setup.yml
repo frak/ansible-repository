@@ -26,11 +26,13 @@
 
 - name: "Install ICU analyser plugin"
   shell: /usr/share/elasticsearch/bin/plugin -install elasticsearch/elasticsearch-analysis-icu/1.12.0
+  ignore_errors: yes
   tags:
     - elasticsearch
 
 - name: "Install HQ plugin"
   shell: /usr/share/elasticsearch/bin/plugin -install royrusso/elasticsearch-HQ
+  ignore_errors: yes
   tags:
     - elasticsearch
 
