@@ -15,6 +15,7 @@
   apt: pkg={{ item }} state=installed
   with_items:
     - git-core
+    - git-flow
 
 # Install the default templates
 - name: Git | Push global config file
