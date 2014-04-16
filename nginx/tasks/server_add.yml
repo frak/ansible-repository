@@ -20,20 +20,20 @@
   file:
     path={{ root }}
     state=absent
-  when_boolean: {{ create_root }}
+  when: {{ create_root }} == 1
 
 - name: Nginx | Server add | Create document root at {{ root }}
   file:
     path={{ root }}
     state=directory
-  when_boolean: {{ create_root }}
+  when: {{ create_root }} == 1
 
 # PHP Server Setup
 - name: Nginx | Server add | Push default index file
   template:
     src={{ repository_basedir }}/nginx/templates/default_index.{{ type }}.j2
     dest={{ root }}/index.{{ type }}
-  when_boolean: {{ create_root }}
+  when: {{ create_root }} == 1
   notify:
   - nginx-restart
 

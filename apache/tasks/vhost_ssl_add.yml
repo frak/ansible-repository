@@ -20,13 +20,7 @@
   file:
     path={{ docroot }}
     state=directory
-  when_boolean: $create_docroot
-
-# - name: Apache | Virtualhost add | Push default index file to docroot
-#   template:
-#     src={{ repository_basedir }}/apache/templates/default_index.html.j2
-#     dest={{ docroot }}/index.html
-#   when_boolean: {{ create_docroot }}
+  when: $create_docroot == 1
 
 - name: Apache | Virtualhost add | Push virtualhost configuration template
   sudo: yes

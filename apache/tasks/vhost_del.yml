@@ -16,7 +16,7 @@
 
 - name: Apache | Virtualhost delete | Remove document root at {{ docroot }}
   file: path={{ docroot }} state=absent
-  when_boolean: {{ remove_docroot }}
+  when: {{ remove_docroot }} == 1
   notify:
   - apache-reload
 

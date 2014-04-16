@@ -1,3 +1,13 @@
 ansible-playbook /vagrant/provision/project.yml --connection local
+sudo service elasticsearch restart
+sudo npm install bower grunt-cli -g
 cd /var/www/sites/id
-composer install
+sudo npm install
+composer install --prefer-source
+app/console id:ip:import --force
+mysql -uroot -proot mysql < /vagrant/data.sql
+app/console doctrine:migrations:migrate
+app/console fos:elastica:populate --index=search_en_gb
+crontab app/Resources/crontab/crontab
+cd /var/www/sites/id/src/Vice/ClientBundle/Resources/
+bower install

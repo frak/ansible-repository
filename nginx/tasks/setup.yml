@@ -35,7 +35,7 @@
     src={{ repository_basedir }}/nginx/templates/{{ item }}.j2
     dest=/etc/nginx/{{ item }}
     owner=root group=root mode=0644
-  when_boolean: {{ nginx_fcgi_fpm }}
+  when: {{ nginx_fcgi_fpm }} == 1
   with_items:
   - php_fpm_status_server.conf
 

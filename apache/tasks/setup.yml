@@ -15,6 +15,9 @@
 - name: Apache | Install Apache-{{ apache_flavor }}
   apt: pkg=apache2-mpm-{{ apache_flavor }} state=installed
 
+- name: Apache | Ensure daemon is running correctly
+  service: name=apache2 state=stopped
+
 # Install the default templates
 - name: Apache | Configure envvars
   template:
@@ -44,15 +47,11 @@
 - name: Apache | Remove default index file from default docroot
   file: path=/var/www/index.html state=absent
 
-# - name: Give www-data/vagrant full perms on the web root
-#   acl: name={{ apache_root }} state=present entry='u:www-data:rwx'
-#   acl: name={{ apache_root }} state=present entry='u:vagrant:rwx'
-
-- name: Apache | Ensure daemon is running correctly
-  service: name=apache2 state=started
-
 - name: Set {{ apache_user }} as the owner of /var/lock/apache2
   file: path=/var/lock/apache2 state=directory owner={{ apache_user }} group={{ apache_group }} recurse=yes
 
 - name: Set {{ apache_user }} as the owner of /var/www/sites
   file: path=/var/www/sites state=directory owner={{ apache_user }} group={{ apache_group }} recurse=yes
+
+- name: Apache | Ensure daemon is running correctly
+  service: name=apache2 state=started

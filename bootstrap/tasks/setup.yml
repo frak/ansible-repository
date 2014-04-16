@@ -16,10 +16,16 @@
 
 - name: Bootstrap | Upgrade installed packages.
   command: apt-get upgrade -y
-  when_boolean: $bootstrap_upgrade
+  when: $bootstrap_upgrade == 1
 
-- name: Bootstrap | Install 'python-apt' module
-  command: apt-get install python-apt -y
+- name: Bootstrap | Add the node.js PPA
+  command: add-apt-repository -y ppa:chris-lea/node.js creates=/etc/apt/sources.list.d/chris-lea-node_js-raring.list
+
+- name: Bootstrap | Update APT cache
+  action: apt update-cache=yes
+
+- name: Bootstrap | Autoremove uneeded packages
+  command: apt-get autoremove
 
 - name: Bootstrap | Install misc utils
   apt: pkg={{ item }} state=present
@@ -34,6 +40,11 @@
     - nfs-kernel-server
     - rabbitmq-server
     - language-pack-en
+    - nodejs
+    - php5-json
+
+- name: Bootstrap | Install 'python-apt' module
+  command: apt-get install python-apt -y
 
 - name: Prepare SSH directory
   action: file dest=/home/vagrant/.ssh state=directory mode=0700
@@ -59,12 +70,12 @@
     dest=/home/vagrant/.bashrc
     owner=vagrant group=vagrant
 
-- name: Project installer
-  template: 
-    src={{ repository_basedir }}/bootstrap/templates/install.j2
-    dest=/home/vagrant/install.sh
-    owner=vagrant group=vagrant
-    mode=0755
+# - name: Project installer
+#   template: 
+#     src={{ repository_basedir }}/bootstrap/templates/install.j2
+#     dest=/home/vagrant/install.sh
+#     owner=vagrant group=vagrant
+#     mode=0755
 
 - name: Install RabbitMQ web interface
   command: /usr/sbin/rabbitmq-plugins enable rabbitmq_management
